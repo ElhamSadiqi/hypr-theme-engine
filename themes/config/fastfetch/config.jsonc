@@ -32,7 +32,7 @@
             "key": "",
             "keyColor": "yellow",
             "outputColor": "yellow",
-            "format": "{minutes}min"
+            "format": "{minutes} min"
         },
         {
             "type": "packages",
