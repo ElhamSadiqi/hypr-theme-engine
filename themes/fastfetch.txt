@@ -1,0 +1,119 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "_comment": "Drop-in fastfetch config. Requirements: (1) a kitty-image-protocol terminal (kitty/ghostty/wezterm) for the logo, (2) a Nerd Font for the glyphs — icons are Material Design glyphs (I use Iosevka Nerd Font). Change logo.source to your own image path. Color tokens are SGR truecolor: {#38;2;R;G;B}.",
+  "logo": {
+    "type": "kitty",
+    "source": "~/Pictures/your-image.png",
+    "height": 18,
+    "padding": {
+      "top": 1,
+      "left": 2,
+      "right": 3
+    }
+  },
+  "display": {
+    "separator": "  ",
+    "key": {
+      "width": 16
+    }
+  },
+  "modules": [
+    "break",
+    "break",
+    {
+      "type": "custom",
+      "format": "{#38;2;108;112;134}╭──────────────────────────────"
+    },
+    {
+      "type": "title",
+      "key": "  󰀄  user",
+      "keyColor": "38;2;203;166;247",
+      "format": "{user-name}"
+    },
+    {
+      "type": "os",
+      "key": "  󰌽  distro",
+      "keyColor": "38;2;137;180;250"
+    },
+    {
+      "type": "shell",
+      "key": "  󱆃  shell",
+      "keyColor": "38;2;166;227;161"
+    },
+    {
+      "type": "terminal",
+      "key": "  󰆍  terminal",
+      "keyColor": "38;2;245;194;231"
+    },
+    {
+      "type": "packages",
+      "key": "  󰏖  packages",
+      "keyColor": "38;2;250;179;135"
+    },
+    {
+      "type": "font",
+      "key": "  󰀬  font",
+      "keyColor": "38;2;249;226;175"
+    },
+    {
+      "type": "custom",
+      "format": "{#38;2;108;112;134}├──────────────────────────────"
+    },
+    {
+      "type": "cpu",
+      "key": "  󰘚  cpu",
+      "keyColor": "38;2;166;227;161"
+    },
+    {
+      "type": "gpu",
+      "key": "  󰢮  gpu",
+      "keyColor": "38;2;148;226;213"
+    },
+    {
+      "type": "memory",
+      "key": "  󰍛  RAM",
+      "keyColor": "38;2;116;199;236"
+    },
+    {
+      "type": "disk",
+      "folders": "/",
+      "key": "  󰣇  /root/",
+      "keyColor": "38;2;137;180;250"
+    },
+    {
+      "type": "disk",
+      "folders": "/home",
+      "key": "  󰋜  /home",
+      "keyColor": "38;2;137;180;250"
+    },
+    {
+      "type": "custom",
+      "format": "{#38;2;108;112;134}├──────────────────────────────"
+    },
+    {
+      "type": "custom",
+      "format": "  {#38;2;137;220;235}󰌨  stack:"
+    },
+    {
+      "type": "custom",
+      "format": "      {#38;2;75;171;220}  {#38;2;205;214;244}python    {#38;2;199;120;221}  {#38;2;205;214;244}pandas    {#38;2;245;177;102}  {#38;2;205;214;244}scikit  "
+    },
+    {
+      "type": "custom",
+      "format": "      {#38;2;109;200;230}  {#38;2;205;214;244}numpy     {#38;2;243;139;100}  {#38;2;205;214;244}jupyter   {#38;2;116;199;236}󰨞  {#38;2;205;214;244}code    "
+    },
+    {
+      "type": "custom",
+      "format": "  {#38;2;243;139;168}󰋑  Love: {#38;2;205;214;244}Tall Mommy Tomboys"
+    },
+    {
+      "type": "custom",
+      "format": "{#38;2;108;112;134}╰──────────────────────────────"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "{#37}󰮯 {#37} • {#37}• {#37}• {#31} 󰊠 {#32} 󰊠 {#33} 󰊠 {#34} 󰊠 {#35} 󰊠 {#36} 󰊠"
+    }
+  ]
+}
