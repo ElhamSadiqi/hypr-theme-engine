@@ -1,0 +1,121 @@
+#!/bin/bash
+
+# ---------------------------
+# HYPR THEME ENGINE
+# ---------------------------
+# Switches:
+# - Hyprland config
+# - Waybar
+# - Rofi
+# - SwayNC
+# - Kitty
+# - Hyprlock
+# - Wallpaper
+# ---------------------------
+
+THEME="$1"
+
+if [ -z "$THEME" ]; then
+    echo "Usage: theme <theme-name>"
+    exit 1
+fi
+
+# ---------------------------
+# PATHS (USER CONFIG ROOTS)
+# ---------------------------
+CONFIG_DIR="$HOME/.config"
+THEMES_DIR="$CONFIG_DIR/themes"
+
+WAYBAR_STYLE="$CONFIG_DIR/waybar/style.css"
+
+KITTY_CONFIG="$CONFIG_DIR/kitty/kitty.conf"
+ROFI_THEME="$CONFIG_DIR/rofi/theme.rasi"
+ROFI_WALLPAPER="$CONFIG_DIR/rofi/config-wallpaper.rasi"
+
+SWAYNC_STYLE="$CONFIG_DIR/swaync/colors.css"
+HYPRLOCK_CONFIG="$CONFIG_DIR/hypr/hyprlock.conf"
+HYPR_THEME_LINK="$CONFIG_DIR/hypr/current-theme/theme.conf"
+
+WALLPAPER_DIR="$HOME/assets/wallpapers"
+
+# ---------------------------
+# VALIDATION
+# ---------------------------
+if [ ! -d "$THEMES_DIR" ]; then
+    notify-send "Theme Engine" "Themes directory not found"
+    exit 1
+fi
+
+if [ ! -f "$THEMES_DIR/kitty-${THEME}.conf" ]; then
+    notify-send "Theme Engine" "Theme not found: kitty-${THEME}"
+    exit 1
+fi
+
+# ---------------------------
+# WALLPAPER MAP
+# ---------------------------
+case "$THEME" in
+    monochrome) WP="monochrome.jpg" ;;
+    tokyonight) WP="aesthetic-anime2.jpg" ;;
+    neoncore)   WP="neoncore5.png" ;;
+    catppuccin) WP="arch.png" ;;
+    ambercore)  WP="anime-girl.png" ;;
+    violetcore) WP="5.jpeg" ;;
+    astrocore)  WP="space.jpg" ;;
+    *)          WP="art5.jpg" ;;
+esac
+
+WALLPAPER_PATH="$WALLPAPER_DIR/$WP"
+
+# ---------------------------
+# WAYBAR THEME
+# ---------------------------
+echo "@import \"$HOME/.config/themes/waybar-${THEME}.css\";" > "$WAYBAR_STYLE"
+
+# ---------------------------
+# ROFI THEMES
+# ---------------------------
+echo "@import \"$HOME/.config/themes/rofi-${THEME}.rasi\"" > "$ROFI_THEME"
+echo "@import \"$HOME/.config/themes/wallpaper-rofi-${THEME}.rasi\"" > "$ROFI_WALLPAPER"
+
+# ---------------------------
+# SWAYNC
+# ---------------------------
+echo "@import \"$HOME/.config/themes/swaync-${THEME}.css\";" > "$SWAYNC_STYLE"
+
+# ---------------------------
+# KITTY
+# ---------------------------
+cp -f "$THEMES_DIR/kitty-${THEME}.conf" "$KITTY_CONFIG"
+
+# ---------------------------
+# HYPRLAND ACTIVE THEME LINK
+# ---------------------------
+ln -sf "$THEMES_DIR/hypr-${THEME}.conf" "$HYPR_THEME_LINK"
+
+# ---------------------------
+# HYPRLOCK
+# ---------------------------
+echo "source = $THEMES_DIR/hyprlock-${THEME}.conf" > "$HYPRLOCK_CONFIG"
+
+# ---------------------------
+# WALLPAPER
+# ---------------------------
+if command -v swaybg >/dev/null 2>&1; then
+    swaybg -i "$WALLPAPER_PATH" -m fill &
+else
+    # fallback if using another setter
+    awww img "$WALLPAPER_PATH" --transition-type grow
+fi
+
+# ---------------------------
+# RELOAD SYSTEM COMPONENTS
+# ---------------------------
+pkill waybar && nohup waybar >/dev/null 2>&1 &
+swaync-client -rs
+hyprctl reload
+
+# ---------------------------
+# DONE NOTIFICATION
+# ---------------------------
+notify-send "Theme Engine" "Switched to: $THEME" -t 3000
