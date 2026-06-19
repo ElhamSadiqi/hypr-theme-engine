@@ -1,0 +1,19 @@
+
+/* Warm Sepia & Burned Amber Desert Theme */
+@define-color main_bg          #181511; /* The rich chocolate-sepia dark background from your waybar pills */
+@define-color notif_bg         #231e18; /* Slightly lighter sepia-brown surface for distinct notification cards */
+@define-color panel_border     #D68438; /* Burned amber gold from your active workspace for the outer panel border */
+@define-color notif_border     #A35D55; /* Muted rose-red from your volume module for notification card outlines */
+@define-color slider_bg        #0e0c0a; /* Deep inset shadow tone for slider tracks and button matrices */
+@define-color widget_bg        #2b2521; /* Inactive workspace capsule background used for standard panel widgets */
+@define-color widget_hover     #3d342e; /* Lighter sand-brown elevation tone for active hovering states */
+
+/* Typography variables */
+@define-color text_main        #EAE3DB; /* Bone-white from your arch icon for primary headers and titles */
+@define-color text_dim         #C0B4A4; /* Soft dusty tan for descriptions, body text, and labels */
+
+/* Functional accent overrides */
+@define-color accent_blue      #D68438; /* Burned amber gold used for active slider fills and toggle highlights */
+@define-color accent_toggle    #181511; /* Contrast sepia dark color for active slider handles */
+@define-color critical_red     #A35D55; /* Muted rose-red utilized for urgent alert indicators */
+@define-color critical_text    #A35D55; /* Matching rose-red text for emergency notification summaries */
