@@ -1,17 +1,10 @@
 #!/bin/bash
 
 # ---------------------------
-# HYPR THEME ENGINE
+# HYPR THEME ENGINE (v2 FIXED)
 # ---------------------------
-# Switches:
-# - Hyprland config
-# - Waybar
-# - Rofi
-# - SwayNC
-# - Kitty
-# - Hyprlock
-# - Wallpaper
-# ---------------------------
+
+set -e
 
 THEME="$1"
 
@@ -21,33 +14,34 @@ if [ -z "$THEME" ]; then
 fi
 
 # ---------------------------
-# PATHS (USER CONFIG ROOTS)
+# ROOT PATHS (FIXED ARCHITECTURE)
 # ---------------------------
+ENGINE_ROOT="$HOME/.config/hypr-theme-engine"
+
+THEMES_DIR="$ENGINE_ROOT/themes"
+ASSETS_DIR="$ENGINE_ROOT/assets/wallpapers"
+
 CONFIG_DIR="$HOME/.config"
-THEMES_DIR="$CONFIG_DIR/themes"
 
 WAYBAR_STYLE="$CONFIG_DIR/waybar/style.css"
-
 KITTY_CONFIG="$CONFIG_DIR/kitty/kitty.conf"
+
 ROFI_THEME="$CONFIG_DIR/rofi/theme.rasi"
 ROFI_WALLPAPER="$CONFIG_DIR/rofi/config-wallpaper.rasi"
 
 SWAYNC_STYLE="$CONFIG_DIR/swaync/colors.css"
+
 HYPRLOCK_CONFIG="$CONFIG_DIR/hypr/hyprlock.conf"
 HYPR_THEME_LINK="$CONFIG_DIR/hypr/current-theme/theme.conf"
 
-WALLPAPER_DIR="$HOME/assets/wallpapers"
-
 # ---------------------------
-# VALIDATION
+# VALIDATION (SAFE)
 # ---------------------------
-if [ ! -d "$THEMES_DIR" ]; then
-    notify-send "Theme Engine" "Themes directory not found"
-    exit 1
-fi
+THEME_PATH="$THEMES_DIR/$THEME"
 
-if [ ! -f "$THEMES_DIR/kitty-${THEME}.conf" ]; then
-    notify-send "Theme Engine" "Theme not found: kitty-${THEME}"
+if [ ! -d "$THEME_PATH" ]; then
+    notify-send "Theme Engine" "Theme not found: $THEME"
+    echo "❌ Theme not found: $THEME_PATH"
     exit 1
 fi
 
@@ -55,67 +49,66 @@ fi
 # WALLPAPER MAP
 # ---------------------------
 case "$THEME" in
-    monochrome) WP="monochrome.jpg" ;;
-    tokyonight) WP="aesthetic-anime2.jpg" ;;
-    neoncore)   WP="neoncore5.png" ;;
     catppuccin) WP="arch.png" ;;
-    ambercore)  WP="anime-girl.png" ;;
     violetcore) WP="5.jpeg" ;;
+    neoncore)   WP="neoncore5.png" ;;
+    monochrome) WP="monochrome.jpg" ;;
     astrocore)  WP="space.jpg" ;;
-    *)          WP="art5.jpg" ;;
+    tokyonight) WP="tokyonight.png" ;;
+    ambercore)  WP="amber.png" ;;
+    *)          WP="arch.png" ;;
 esac
 
-WALLPAPER_PATH="$WALLPAPER_DIR/$WP"
+WALLPAPER_PATH="$ASSETS_DIR/$WP"
 
 # ---------------------------
-# WAYBAR THEME
+# APPLY WAYBAR
 # ---------------------------
-echo "@import \"$HOME/.config/themes/waybar-${THEME}.css\";" > "$WAYBAR_STYLE"
+echo "@import \"$THEME_PATH/waybar-${THEME}.css\";" > "$WAYBAR_STYLE"
 
 # ---------------------------
-# ROFI THEMES
+# APPLY ROFI
 # ---------------------------
-echo "@import \"$HOME/.config/themes/rofi-${THEME}.rasi\"" > "$ROFI_THEME"
-echo "@import \"$HOME/.config/themes/wallpaper-rofi-${THEME}.rasi\"" > "$ROFI_WALLPAPER"
+echo "@import \"$THEME_PATH/rofi-${THEME}.rasi\";" > "$ROFI_THEME"
+echo "@import \"$THEME_PATH/wallpaper-rofi-${THEME}.rasi\";" > "$ROFI_WALLPAPER"
 
 # ---------------------------
-# SWAYNC
+# APPLY SWAYNC
 # ---------------------------
-echo "@import \"$HOME/.config/themes/swaync-${THEME}.css\";" > "$SWAYNC_STYLE"
+echo "@import \"$THEME_PATH/swaync-${THEME}.css\";" > "$SWAYNC_STYLE"
 
 # ---------------------------
 # KITTY
 # ---------------------------
-cp -f "$THEMES_DIR/kitty-${THEME}.conf" "$KITTY_CONFIG"
+cp -f "$THEME_PATH/kitty-${THEME}.conf" "$KITTY_CONFIG"
 
 # ---------------------------
-# HYPRLAND ACTIVE THEME LINK
+# HYPRLAND THEME LINK
 # ---------------------------
-ln -sf "$THEMES_DIR/hypr-${THEME}.conf" "$HYPR_THEME_LINK"
+ln -sf "$THEME_PATH/hypr-${THEME}.conf" "$HYPR_THEME_LINK"
 
 # ---------------------------
-# HYPRLOCK
+# HYPRLOCK (FIXED SOURCE)
 # ---------------------------
-echo "source = $THEMES_DIR/hyprlock-${THEME}.conf" > "$HYPRLOCK_CONFIG"
+echo "source = $THEME_PATH/hyprlock-${THEME}.conf" > "$HYPRLOCK_CONFIG"
 
 # ---------------------------
-# WALLPAPER
+# WALLPAPER APPLY (SAFE)
 # ---------------------------
 if command -v swaybg >/dev/null 2>&1; then
     swaybg -i "$WALLPAPER_PATH" -m fill &
 else
-    # fallback if using another setter
     awww img "$WALLPAPER_PATH" --transition-type grow
 fi
 
 # ---------------------------
-# RELOAD SYSTEM COMPONENTS
+# RELOAD SYSTEM
 # ---------------------------
 pkill waybar && nohup waybar >/dev/null 2>&1 &
 swaync-client -rs
 hyprctl reload
 
 # ---------------------------
-# DONE NOTIFICATION
+# DONE
 # ---------------------------
 notify-send "Theme Engine" "Switched to: $THEME" -t 3000

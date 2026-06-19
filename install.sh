@@ -1,9 +1,8 @@
 #!/bin/bash
-
 set -e
 
 # -----------------------------------
-# HYPR THEME ENGINE INSTALLER
+# HYPR THEME ENGINE INSTALLER (V2)
 # -----------------------------------
 
 REPO_URL="https://github.com/ElhamSadiqi/hypr-theme-engine.git"
@@ -31,32 +30,38 @@ command -v git >/dev/null 2>&1 || {
 echo "✔ git found"
 
 # ---------------------------
-# CLONE OR UPDATE
+# DETECT CONTEXT (IMPORTANT FIX)
 # ---------------------------
 echo ""
-echo "[2/5] Setting up repository..."
+echo "[2/5] Detecting installation source..."
 
-if [ -d "$INSTALL_DIR/.git" ]; then
+# If user is already inside repo, DO NOT clone
+if [ -f "./install.sh" ] && [ -d "./themes" ]; then
+    echo "✔ Running from local repo (no internet needed)"
+    INSTALL_DIR="$(pwd)"
+
+# If installed system already exists
+elif [ -d "$INSTALL_DIR/.git" ]; then
     echo "✔ Existing install found, updating..."
     git -C "$INSTALL_DIR" pull --rebase
+
+# Fresh install
 else
     echo "✔ Cloning repository..."
     git clone "$REPO_URL" "$INSTALL_DIR"
 fi
 
 # ---------------------------
-# CREATE BIN DIR + LINK COMMANDS
+# SETUP CLI COMMANDS
 # ---------------------------
 echo ""
 echo "[3/5] Setting up CLI commands..."
 
 mkdir -p "$BIN_DIR"
 
-# Ensure scripts are executable
 chmod +x "$INSTALL_DIR/scripts/theme-switch" 2>/dev/null || true
 chmod +x "$INSTALL_DIR/scripts/theme-picker" 2>/dev/null || true
 
-# Create symlinks (overwrite safely)
 ln -sf "$INSTALL_DIR/scripts/theme-switch" "$BIN_DIR/theme"
 ln -sf "$INSTALL_DIR/scripts/theme-picker" "$BIN_DIR/theme-picker"
 
@@ -71,21 +76,18 @@ echo "   $INSTALL_DIR"
 
 echo ""
 echo "IMPORTANT:"
-echo "Make sure Hyprland includes this line:"
-echo ""
+echo "Make sure Hyprland includes:"
 echo "source = ~/.config/hypr-theme-engine/config/hypr/hyprland.conf"
-echo ""
 
 # ---------------------------
-# FINISH
+# DONE
 # ---------------------------
+echo ""
 echo "[5/5] Done!"
 echo ""
 echo "🎉 Installation complete!"
 echo ""
-echo "Next steps:"
-echo "  1. Restart Hyprland OR run: hyprctl reload"
-echo "  2. Try:"
-echo "     theme catppuccin"
-echo "     theme tokyonight"
+echo "Try:"
+echo "  theme catppuccin"
+echo "  theme tokyonight"
 echo ""
