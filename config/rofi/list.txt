@@ -1,0 +1,7 @@
+catppuccin
+astrocore
+monochrome
+tokyonight
+violetcore
+neoncore
+ambercore
