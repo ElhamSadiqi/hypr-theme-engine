@@ -1,0 +1,63 @@
+
+@import "colors.css";
+
+/* 1. FLATTEN ALL WRAPPERS AND LAYER BASES */
+.notification-group,
+.notification-row,
+.notification-background,
+.notification {
+    background: transparent;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 2. APPLY THE CLEAN STYLING TO THE TEXT BUTTON CLUSTERS */
+.notification-default-action {
+    background: @notif_bg;
+    border-radius: 14px;
+    border: 1px solid @notif_border; /* Cleansed: Using variable here */
+    padding: 16px;
+    margin: 6px 0px;
+}
+
+.notification-default-action:hover {
+    background: @widget_hover;
+}
+
+/* 3. FORMAT TYPOGRAPHY AND CONTENT INSIDE THE CARDS */
+.notification-content {
+    background: transparent;
+}
+
+.notification-content .summary {
+    font-weight: 700;
+    font-size: 15px;
+    color: @text_main;
+}
+
+.notification-content .body {
+    font-size: 13px;
+    color: @text_dim;
+    margin-top: 4px;
+}
+
+/* Push the floating notification popup away from the right edge of the screen */
+.floating-notifications {
+    margin-right: 16px;
+}
+
+/* COMPLETELY HIDE THE NOTIFICATION LIST SCROLLBAR */
+scrollbar,
+scrollbar trough,
+scrollbar slider {
+    background: transparent;
+    background-color: transparent;
+    border: none;
+    min-width: 0px;
+    min-height: 0px;
+    opacity: 0;
+}
