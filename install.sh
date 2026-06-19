@@ -6,7 +6,9 @@ set -e
 # HYPR THEME ENGINE INSTALLER
 # -----------------------------------
 
+REPO_URL="https://github.com/ElhamSadiqi/hypr-theme-engine.git"
 REPO_NAME="hypr-theme-engine"
+
 INSTALL_DIR="$HOME/.config/$REPO_NAME"
 BIN_DIR="$HOME/.local/bin"
 
@@ -21,7 +23,7 @@ echo ""
 # ---------------------------
 echo "[1/5] Checking requirements..."
 
-command -v git >/dev/null || {
+command -v git >/dev/null 2>&1 || {
     echo "❌ git not installed"
     exit 1
 }
@@ -34,41 +36,42 @@ echo "✔ git found"
 echo ""
 echo "[2/5] Setting up repository..."
 
-if [ -d "$INSTALL_DIR" ]; then
+if [ -d "$INSTALL_DIR/.git" ]; then
     echo "✔ Existing install found, updating..."
-    cd "$INSTALL_DIR"
-    git pull
+    git -C "$INSTALL_DIR" pull --rebase
 else
     echo "✔ Cloning repository..."
-    git clone https://github.com/YOUR_USERNAME/$REPO_NAME.git "$INSTALL_DIR"
+    git clone "$REPO_URL" "$INSTALL_DIR"
 fi
 
 # ---------------------------
-# CREATE BIN DIR
+# CREATE BIN DIR + LINK COMMANDS
 # ---------------------------
 echo ""
-echo "[3/5] Setting up scripts..."
+echo "[3/5] Setting up CLI commands..."
 
 mkdir -p "$BIN_DIR"
 
-# Link main scripts
+# Ensure scripts are executable
+chmod +x "$INSTALL_DIR/scripts/theme-switch" 2>/dev/null || true
+chmod +x "$INSTALL_DIR/scripts/theme-picker" 2>/dev/null || true
+
+# Create symlinks (overwrite safely)
 ln -sf "$INSTALL_DIR/scripts/theme-switch" "$BIN_DIR/theme"
 ln -sf "$INSTALL_DIR/scripts/theme-picker" "$BIN_DIR/theme-picker"
 
-chmod +x "$INSTALL_DIR/scripts/"*
-
 # ---------------------------
-# CONFIG SETUP MESSAGE
+# CONFIG INFO
 # ---------------------------
 echo ""
 echo "[4/5] Config setup..."
 
-echo "✔ Config installed at:"
-echo "   $INSTALL_DIR/config"
+echo "✔ Installed at:"
+echo "   $INSTALL_DIR"
 
 echo ""
 echo "IMPORTANT:"
-echo "Add this to your Hyprland config if not already:"
+echo "Make sure Hyprland includes this line:"
 echo ""
 echo "source = ~/.config/hypr-theme-engine/config/hypr/hyprland.conf"
 echo ""
@@ -79,9 +82,10 @@ echo ""
 echo "[5/5] Done!"
 echo ""
 echo "🎉 Installation complete!"
-echo "👉 Restart Hyprland or run: hyprctl reload"
 echo ""
-echo "Try:"
-echo "   theme catppuccin"
-echo "   theme tokyonight"
+echo "Next steps:"
+echo "  1. Restart Hyprland OR run: hyprctl reload"
+echo "  2. Try:"
+echo "     theme catppuccin"
+echo "     theme tokyonight"
 echo ""
