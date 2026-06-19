@@ -1,0 +1,68 @@
+* {
+    bg: #181511;
+    fg: #C0B4A4;
+    accent: #7A583A;
+
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    background-color: @bg;
+    border: 2px;
+    border-color: @accent;
+    border-radius: 25px;
+    width: 600px;
+    anchor: center;
+    location: center;
+    x-offset: 0;
+    y-offset: 0;
+}
+
+mainbox {
+    children: [ inputbar, listview];
+    padding: 20px;
+}
+
+inputbar {
+    children: [ prompt, entry];
+    background-color: rgba(122, 88, 58, 0.1);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 0 0 10px 0;
+}
+
+prompt {
+    text-color: @accent;
+    padding: 0 10px 0 5px;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    fixed-height: false;
+}
+
+element {
+    padding: 8px 12px;
+    border-radius: 15px;
+    spacing: 10px;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: #181511;
+}
+
+element-text selected,
+element-icon selected {
+    text-color: #181511;
+}
+
+element-icon {
+    size: 24px;
+}
+
+element-text {
+    vertical-align: 0.5;
+}

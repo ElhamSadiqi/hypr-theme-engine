@@ -1,0 +1,19 @@
+
+/* Cyber-Noir Neon Crimson & Pitch-Black Theme */
+@define-color main_bg          #111111; /* Pure dark pitch-black background to match your main waybar pills */
+@define-color notif_bg         #1a1114; /* Extremely dark crimson-black tint for distinct notification cards */
+@define-color panel_border     #ff4d6d; /* Vibrant neon crimson from your modules for the outer panel border */
+@define-color notif_border     #ff4d6d; /* Matching electric candy-red for notification card outlines */
+@define-color slider_bg        #080808; /* Deepest black shadow tone for slider tracks and button matrices */
+@define-color widget_bg        #1c1c1c; /* Dark charcoal background for generic inactive modules */
+@define-color widget_hover     #2b1a1f; /* Dark neon-tinged hover accent for active cursor highlighting */
+
+/* Typography variables */
+@define-color text_main        #ffffff; /* Pristine white text for extreme readability on dark targets */
+@define-color text_dim         #ff4d6d; /* Laser crimson red for titles, descriptions, and icon labels */
+
+/* Functional accent overrides */
+@define-color accent_blue      #ff4d6d; /* Neon pink-red used for active slider fills and toggle highlights */
+@define-color accent_toggle    #ffffff; /* Contrast pure white color for active slider caps */
+@define-color critical_red     #ff3b3b; /* The precise aggressive warning red pulled from your arch icon */
+@define-color critical_text    #ff3b3b; /* Matching pure red text for urgent emergency alerts */
