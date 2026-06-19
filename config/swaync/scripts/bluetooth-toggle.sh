@@ -1,6 +1,9 @@
 #!/bin/bash
 
-if bluetoothctl show | grep -q "Powered: yes"; then
+
+STATE=$(bluetoothctl show | awk -F': ' '/Powered:/ {print $2}' | tr -d '[:space:]')
+
+if [ "$STATE" = "yes" ]; then
     bluetoothctl power off
     notify-send "Bluetooth" "Disabled"
 else

@@ -60,14 +60,13 @@
     },
     "backlight": {
       "label": "",
-      "device": "intel_backlight",
       "subsystem": "backlight", 
       "min": 10
     },
     "buttons-grid": {
       "n-cols": 4,
       "actions": [
-        { "label": "", "command": "thunar /home/Arch" },
+        { "label": "", "command": "thunar ~" },
         { "label": "", "command": "~/.config/swaync/scripts/wifi-toggle.sh" },
         { "label": "", "command": "~/.config/swaync/scripts/bluetooth-toggle.sh" },
         { "label": "", "command": "systemctl poweroff" }

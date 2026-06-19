@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Adjust brightness (+ / -)
 brightnessctl set "$1"
 
-# Get current brightness percentage
-BRIGHTNESS=$(brightnessctl info | grep -oP '\(\K[^%]+(?=%\))')
+BRIGHTNESS=$(brightnessctl get)
+MAX=$(brightnessctl max)
+PERCENT=$(( 100 * BRIGHTNESS / MAX ))
 
 notify-send -h string:x-canonical-private-synchronous:brightness_change \
-            -h int:value:"$BRIGHTNESS" \
+            -h int:value:"$PERCENT" \
             -t 1500 \
-            "Brightness" "${BRIGHTNESS}%"
+            "Brightness" "${PERCENT}%"

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Fetch weather condition and temperature separated by a unique delimiter (like '|')
-data=$(curl -s 'wttr.in/Kabul?format=%C|%t')
+LOCATION="${WEATHER_LOCATION:-Kabul}"
 
-# Split safely using the pipe character as the field separator
+data=$(curl -s "wttr.in/${LOCATION}?format=%C|%t")
+
 condition=$(echo "$data" | awk -F'|' '{print $1}')
 temp=$(echo "$data" | awk -F'|' '{print $2}' | sed 's/+//')
 

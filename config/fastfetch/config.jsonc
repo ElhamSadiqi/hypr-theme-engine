@@ -1,7 +1,7 @@
 {
     "logo": {
         "type": "kitty",
-        "source": "/home/Arch/Downloads/fastfetch/makima.png",
+        "source": "makima.png",
         "width": 26,
         "height": 12
     },
