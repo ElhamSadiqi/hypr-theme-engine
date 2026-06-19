@@ -1,0 +1,85 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin-top": 5,
+  "margin-left": 10,
+  "margin-right": 10,
+
+  "modules-left": [
+    "custom/arch",
+    "custom/weather"
+  ],
+
+  "modules-center": [
+    "clock",
+    "hyprland/workspaces"
+  ],
+
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "battery",
+    "custom/notification"
+  ],
+
+  "custom/arch": {
+    "format": "󰣇",
+    "tooltip": false, 
+    "on-click": "~/.config/rofi/WallpaperSelect.sh"
+  },
+
+  "custom/weather": {
+    "exec": "~/.config/scripts/weather.sh",
+    "interval": 1800,
+    "return-type": "json"
+  },
+
+  "clock": {
+  "format": "{:%I:%M %p}",
+  "tooltip-format": "{:%A, %d %B %Y}"
+  }, 
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "all-outputs": true,
+    "persistent-workspaces": {
+      "*": 5
+    }
+  },
+
+  "network": {
+    "format-wifi": "󰖩 {essid}",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "offline",
+    "on-click": "kitty impala"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 muted",
+    "format-icons": {
+       "headphone": "󰋋",
+       "hands-free": "󰋎",
+       "headset": "󰋎",
+       "phone": "󰏲",
+       "portable": "󰏲",
+       "car": "󰄋",
+       "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "scroll-step": 5
+  },
+
+  "battery": {
+  "format": "{icon}  {capacity}%",
+  "format-charging": "󰂄 {capacity}%",
+  "format-icons": ["", "", "", "", ""]
+  },
+  
+  "custom/notification": {
+    "tooltip": false,
+    "format": "󰂚",
+    "on-click": "swaync-client -t -sw",
+    "escape": true
+  }
+}
