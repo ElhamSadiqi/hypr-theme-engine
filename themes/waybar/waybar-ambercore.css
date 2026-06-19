@@ -1,0 +1,95 @@
+* {
+    all: unset;
+}
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono";
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    transition: none;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/* 1. Main Background: Your Sepia Shadow Base (#181511) */
+/* 2. Standard Text/Icon Color: Soft Dusty Tan Accent */
+#custom-arch,
+#custom-notification, 
+#clock,
+#workspaces,
+#network,
+#battery {
+    background: #181511;
+    color: #C0B4A4;
+    padding: 0px 10px;
+    border-radius: 25px;
+    margin: 2px 2px;
+}
+
+/* Eye Glow Amber for Temperature */
+#custom-weather {
+    background: #181511;
+    color: #D68438;
+    padding: 0px 12px;
+    border-radius: 25px;
+    margin: 2px 2px;
+}
+
+/* Lip Muted Rose-Red for Volume */
+#pulseaudio {
+    background: #181511;
+    color: #A35D55;
+    padding: 0px 12px;
+    border-radius: 25px;
+    margin: 2px 0;
+}
+
+#network {
+    color: #C0B4A4;
+}
+
+#battery {
+    color: #C0B4A4;
+}
+
+#custom-arch {
+    font-size: 18px;
+    padding: 0px 18px;
+    color: #EAE3DB;
+}
+
+#custom-notification {
+    padding: 0px 16px;
+    color: #C0B4A4;
+}
+
+/* 3. Active Accent: Burned Amber Gold */
+#workspaces button {
+    color: #C0B4A4;
+    padding: 0 10px;
+    margin: 2px 3px;
+    /* Deep transparent sepia fill for inactive workspace pills */
+    background: rgba(43, 37, 33, 0.4);
+    border-radius: 15px;
+}
+
+#workspaces button.active {
+    color: #181511;
+    background: #D68438;
+}
+
+/* Slim pills styling matching your top bar view */
+#clock,
+#battery,
+#network {
+    padding: 0 12px;
+}
+
+tooltip {
+    background: transparent;
+    opacity: 0;
+}

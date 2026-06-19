@@ -1,0 +1,81 @@
+* {
+    all: unset; 
+    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono";
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    transition: none;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/* 1. Unified Base Size For All Standard Modules */
+#custom-arch,
+#clock,
+#workspaces,
+#network,
+#battery,
+#custom-weather,
+#pulseaudio,
+#custom-notification {
+    background: #00000000;
+    padding: 0px 10px;
+    margin: 2px 2px;
+    border-radius: 25px;
+}
+
+#custom-arch {
+    font-size: 18px;
+    color: #c9c7c7;
+    padding: 0px 18px; 
+}
+
+#clock {
+    color: #B0B0B0;
+}
+
+#custom-weather {
+    color:#9E9E9E;
+} 
+
+#pulseaudio {
+    color: #c9c7c7;
+}
+
+#network {
+    color: #B3B3B3;
+}
+
+#battery {
+    color: #AAAAAA;
+}
+
+#custom-notification {
+    padding: 0px 16px; 
+    color: #B3B3B3;
+}
+
+/* 4. Workspaces Styling */
+#workspaces button {
+    color: transparent;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 3px 3px;
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+
+#workspaces button.active {
+    color: #272727;
+    background: #A7A7A7;  
+    padding: 0px 25px;
+    border-radius: 8px;
+}
+
+tooltip {
+    background: transparent;
+    opacity: 0;
+}
