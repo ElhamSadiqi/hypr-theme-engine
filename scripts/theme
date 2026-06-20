@@ -1,0 +1,94 @@
+#!/bin/bash
+
+THEME="$1"
+
+if [ -z "$THEME" ]; then
+    echo "Usage: theme.sh <theme-name>"
+    exit 1
+fi
+
+THEMES_DIR="$HOME/.config/themes"
+
+# ---------------------------
+# FILE PATHS
+# ---------------------------
+WAYBAR_GLOBAL="$HOME/.config/waybar/style.css"
+
+KITTY="$HOME/.config/kitty/kitty.conf"
+ROFI="$HOME/.config/rofi/theme.rasi"
+WALLPAPER_ROFI="$HOME/.config/rofi/config-wallpaper.rasi"
+SWAYNC="$HOME/.config/swaync/colors.css"
+HYPRLOCK="$HOME/.config/hypr/hyprlock.conf"
+HYPR_THEME_LINK="$HOME/.config/hypr/current-theme/theme.conf"
+
+# ---------------------------
+# VALIDATION (IMPORTANT)
+# ---------------------------
+if [ ! -d "$THEMES_DIR" ]; then
+    notify-send "Theme Error" "Themes directory missing"
+    exit 1
+fi
+
+if [ ! -f "$THEMES_DIR/kitty-${THEME}.conf" ]; then
+    notify-send "Theme Error" "Missing theme: kitty-${THEME}.conf"
+    exit 1
+fi
+
+# ---------------------------
+# WALLPAPERS
+# ---------------------------
+case "$THEME" in
+    monochrome) WP="monochrome.jpg" ;;
+    tokyonight) WP="aesthetic-anime2.jpg" ;;
+    neoncore)   WP="neoncore5.png" ;;
+    catppuccin) WP="arch.png" ;;
+    ambercore)  WP="anime-girl.png" ;;
+    violetcore) WP="5.jpeg" ;;
+    astrocore)  WP="space.jpg" ;;
+    *)          WP="art5.jpg" ;;
+esac
+
+# ---------------------------
+# WAYBAR (SAFE ABSOLUTE PATH)
+# ---------------------------
+WAYBAR_IMPORT="@import \"$HOME/.config/themes/waybar-${THEME}.css\";"
+echo "$WAYBAR_IMPORT" > "$WAYBAR_GLOBAL"
+
+# ---------------------------
+# ROFI (FULL OVERWRITE - YOUR DESIGN)
+# ---------------------------
+echo "@import \"$HOME/.config/themes/rofi-${THEME}.rasi\"" > "$ROFI"
+echo "@import \"$HOME/.config/themes/wallpaper-rofi-${THEME}.rasi\"" > "$WALLPAPER_ROFI"
+
+# ---------------------------
+# SWAYNC (ABSOLUTE PATH FIX)
+# ---------------------------
+echo "@import \"$HOME/.config/themes/swaync-${THEME}.css\";" > "$SWAYNC"
+# ---------------------------
+# KITTY (SAFE REPLACE)
+# ---------------------------
+cp -f "$THEMES_DIR/kitty-${THEME}.conf" "$KITTY"
+
+# ---------------------------
+# HYPR THEME LINK
+# ---------------------------
+ln -sf "$THEMES_DIR/hypr-${THEME}.conf" "$HYPR_THEME_LINK"
+
+# ---------------------------
+# HYPRLOCK THEME
+# ---------------------------
+echo "source = $THEMES_DIR/hyprlock-${THEME}.conf" > "$HYPRLOCK"
+
+# ---------------------------
+# WALLPAPER
+# ---------------------------
+awww img "$HOME/Downloads/Wallpaper/$WP" --transition-type grow
+
+# ---------------------------
+# RELOAD SYSTEM
+# ---------------------------
+pkill waybar && nohup waybar >/dev/null 2>&1 &
+swaync-client -rs
+hyprctl reload
+
+notify-send "Theme Switch" "Now using: $THEME" -t 3000
