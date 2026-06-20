@@ -1,0 +1,19 @@
+
+/* Muted Obsidian & Pastel Slate Theme */
+@define-color main_bg          #24202A; /* Solid obsidian dark-charcoal background */
+@define-color notif_bg         #2d2935; /* Slightly lighter tone for distinct notification card panels */
+@define-color panel_border     #AFAFD1; /* Muted slate-silver for outer panel accents */
+@define-color notif_border     #AFAFD1; /* Muted slate-silver for individual card lines */
+@define-color slider_bg        #1b1820; /* Deep inset background for button matrices and slider tracks */
+@define-color widget_bg        #1f1c24; /* Base dark color for standard inactive panel panels */
+@define-color widget_hover     #332d3b; /* Soft gray-purple elevation tone for active hovering states */
+
+/* Typography variables */
+@define-color text_main        #FEFE9B; /* Soft pastel yellow for primary titles and slider numbers */
+@define-color text_dim         #AFAFD1; /* Pastel slate-indigo for descriptions, body text, and labels */
+
+/* Functional accent overrides */
+@define-color accent_blue      #7694DE; /* Calm pastel blue for active sliders and toggle switches */
+@define-color accent_toggle    #ffffff; /* Clean white color for active slider caps */
+@define-color critical_red     #ff4841; /* Muted warning red for emergency borders */
+@define-color critical_text    #ff4841; /* Matching muted red text for critical alerts */

@@ -1,0 +1,76 @@
+* {
+    all: unset; 
+    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono";
+    font-size: 14px;
+    border: none;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+#custom-arch,
+#clock,
+#workspaces,
+#network,
+#battery,
+#custom-weather,
+#pulseaudio,
+#custom-notification {
+    background: #24202A;
+    padding: 0px 10px;
+    margin: 2px 2px;
+    border-radius: 25px;
+}
+
+#custom-arch {
+    font-size: 18px;
+    color: #AFAFD1;
+    padding: 0px 18px;
+}
+
+#clock {
+    color: #7694DE;
+}
+
+#custom-weather {
+    color: #ff4841;
+}
+
+#pulseaudio {
+    color: #FEFE9B;
+}
+
+#network {
+    color: #69F8FC;
+}
+
+#battery {
+    color: #A2C866;
+}
+
+#custom-notification {
+    color: #7396e2;
+    padding: 0px 16px; 
+}
+
+#workspaces button {
+    color: transparent;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 3px 3px;
+    background: rgba(166, 176, 212, 0.1);
+    border-radius: 10px;
+}
+
+#workspaces button.active {
+    color: #24202A;
+    background: #7396e2;
+    padding: 0px 20px;
+    border-radius: 10px;
+}
+
+tooltip {
+    background: transparent;
+    opacity: 0;
+}
