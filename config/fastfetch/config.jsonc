@@ -1,7 +1,7 @@
 {
     "logo": {
         "type": "kitty",
-        "source": "makima.png",
+        "source": "/home/Arch/Downloads/fastfetch/makima.png",
         "width": 26,
         "height": 12
     },
@@ -16,8 +16,8 @@
         {
             "type": "os",
             "key": "",
-            "keyColor": "blue",
-            "outputColor": "blue",
+            "keyColor": "green",
+            "outputColor": "green",
             "format": "{2}"
         },
         {
@@ -32,7 +32,7 @@
             "key": "",
             "keyColor": "yellow",
             "outputColor": "yellow",
-            "format": "{?1}{1}d {?}{?2}{2}h {?}{3}min"
+            "format": "{?1}{1}d {?}{?2}{2}h {?}{3} min"
         },
         {
             "type": "packages",
@@ -74,7 +74,7 @@
             "key": "󰢮",
             "keyColor": "magenta",
             "outputColor": "magenta",
-            "format": "{2}"
+            "format": "{1}"
         },
         {
             "type": "memory",
@@ -85,8 +85,8 @@
         },
         "break",
         {
-            "type": "colors",
-            "symbol": "circle"
+            "type": "custom",
+            "format": "\u001b[33m󰮯   \u001b[32m󰊠 \u001b[31m󰊠 \u001b[33m󰊠 \u001b[35m󰊠 \u001b[36m󰊠 \u001b[90m󰊠 \u001b[34m󰊠 \u001b[93m󰊠 \u001b[95m󰊠 "
         }
     ]
 }
